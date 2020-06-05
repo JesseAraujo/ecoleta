@@ -42,6 +42,10 @@
     font-size: 0.01px;
 }
 
+#modal .header a:hover{
+    background-image: url("../assets/x-hover.svg");
+}
+
 #modal .header h1{
     color: white;
 
