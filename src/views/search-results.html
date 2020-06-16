@@ -2,59 +2,69 @@
 
 {% set pageId = "page-search-results" %}
 
+{% set route = "/search" %} 
+
 {% block title %}
-    <title>Ecoleta | Resultado da pesquisa</title>
+<title>Ecoleta | Resultado da pesquisa</title>
 {% endblock title %}
 
 {% block styles %}
-    <link rel="stylesheet" href="/styles/search-results.css">
+<link rel="stylesheet" href="/styles/search-results.css">
 {% endblock styles %}
 a
 {% block content %}
 
-    {% include "partials/page-header.html" %}
+{% include "partials/page-header.html" %}
 
-    <main>
+<main>
 
-        <h4>
-            <strong>2 pontos</strong>
-            encontrados
-        </h4>
+    {% if total > 0 %}
 
-        <div class="cards">
+    <h4>
+        <strong>{{ total }} pontos</strong>
+        encontrados
+    </h4>
 
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1528323273322-d81458248d40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Colectoria">
-                <h1>Colectoria</h1>
-                <h3>Residuos Eletrônicos, Lampadas</h3>
-                <p>
-                    Rio do Sul, Santa Catarina
-                    <br/>
-                    Guilherme Gemballa, Jardim América
-                    <br/>
-                    Nº 260
-                </p>
+    <div class="cards">
+
+        {% for place in places %}
+
+
+        <div class="card">
+
+            <div class="delete">                   
+                <a href="{{ route }}/{{ place.id }}" title="Deletar {{ place.name }}">Deletar</a>
             </div>
 
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1567393528677-d6adae7d4a0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Papersider">
-                <h1>Papersider</h1>
-                <h3>Papéis e Papelão</h3>
-                <p>
-                    Rio do Sul, Santa Catarina
-                    <br/>
-                    Guilherme Gemballa, Jardim América
-                    <br/>
-                    Nº 260
-                </p>
-            </div>
+            <img src="{{ place.image }}" alt="{{ place.name }}">
+            <h1>{{ place.name }}</h1>
+            <h3>{{ place.items }}</h3>
+            <p>
+                {{ place.city }}, {{ place.state }}
+                <br />
+                {{ place.address }}
+                <br />
+                {{ place.address2 }}
+            </p>
 
+            
         </div>
 
-    </main>
+        
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <h4><strong>Nenhum</strong> local encontrado</h4>
+
+    {% endif %}
+
+</main>
 
 {% endblock content %}
 
 {% block scripts %}
-    <script src="/scripts/index.js"></script>
+<script src="/scripts/index.js"></script>
 {% endblock scripts %}
